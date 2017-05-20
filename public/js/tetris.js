@@ -62,8 +62,8 @@ Piece.prototype.rotate = function() {
 }
 
 
-var WALL = 1
-var BLOCK = 2
+// var wall = 1
+// var block = 2
 Piece.prototype._collides = function(dx, dy, pat) {
   for (var ix = 0; ix < pat.length; ix++) {
     for (var iy = 0; iy < pat.length; iy++) {
@@ -73,13 +73,13 @@ Piece.prototype._collides = function(dx, dy, pat) {
       var x = this.x + ix +dx
       var y = this.y + iy + dy
       if (y >= height || x < 0 || x >= width) {
-        return WALL
+        return 1
       }
       if(y < 0) {
         continue
       }
       if(board[y][x] !=="") {
-        return BLOCK
+        return 2
       }
     }
   }
@@ -128,7 +128,7 @@ Piece.prototype.lock = function() {
       if (this.y + iy < 0) {
         alert("Game Over\n\nYour score was: " + lines)
         done = true
-        location.reload()
+        newGame()
         return
       }
       board[this.y + iy][this.x + ix] = this.color
@@ -263,13 +263,12 @@ function main() {
   }
 }
 
-
-function newGame() {
-  location.reload()
-}
-
+$(document).ready( function(){
+  $('#button').on('click', function() {
+    location.reload()
+  })
+})
 
 piece = newPiece()
 drawBoard()
-linecount.textContent = "Lines: 0"
 main()
